@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="https://webix.com/">
+
+<!-- Mirrored from webix.com/demos/spreadsheet/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 07 Apr 2021 18:43:09 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+	<title>JavaScript SpreadSheet UI Widget</title>
+	<meta name="description" content="Create your perfect spreadsheet with rich functionality using a flexible and easily embeddable Webix SpreadSheet widget.You can customize its UI in accordance with project requirements.
+">
+	<meta name="keywords" content="Webix SpreadSheet widget, SpreadSheet widget, SpreadSheet, Webix SpreadSheet"/>
+	<meta charset="utf-8">
+
+
+	<link rel="stylesheet" href="../../../cdn.webix.com/site/webix.css" type="text/css" media="screen" charset="utf-8">
+	<link rel="stylesheet" href="../../../cdn.webix.com/site/spreadsheet/spreadsheet.css" type="text/css" media="screen" charset="utf-8">
+	
+	<script src="../../../cdn.webix.com/site/webix.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" src="../common/nav5c3f.js?v=46"></script>
+	<link rel="stylesheet" type="text/css" href="../common/nav5c3f.css?v=4156156">
+	<link href="https://webix.com/assets/favicon.ico" rel="shortcut icon" />
+</head>
+<style>
+.webix_view.webix_window.webix_shadow_none.webix_ssheet_ui {
+    display: none !important;
+}.webix_view.navbar {
+    display: none !important;
+}.ssheet_filter_sign {
+    display: none !important;
+}.webix_cell.webix_lock {
+    display: none !important;
+}
+</style>
+<body>
+	
+<script src="../../../cdn.webix.com/site/spreadsheet/spreadsheet.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="../../assets/demo/spreadsheet/spreadsheet_data.js"></script>
+
+<script type="text/javascript">
+	webix.ready(function(){
+		var appui = {
+			view:"spreadsheet",
+			id:"ssheet",
+			toolbar:"full",
+			data: {
+				sheets: base_data
+			},
+			bottombar:true,
+			on:{
+				onViewInit:function(view, config){
+					if (view == "toolbar"){
+						var toolbar = config.elements[0];
+						//hide print button
+						toolbar.rows[0].cols[2].rows[0].hidden = true;
+					} 
+				}
+			}
+		};
+		webix.ui({
+			type:"clean", rows:[
+				appui,
+				{ view:"navbar", value:"spreadsheet" }
+			]
+		});
+
+		// add filters
+		$$("ssheet").setCellFilter(2,1, ["Europe", "Asia"] );
+		$$("ssheet").setCellFilter(2,2, "B3:B7");
+
+		// add chart
+		$$("ssheet").views.add(750,50,"chart","B2:E7",{type:"line", legend:1, xAxis:1, width:550, height:400});
+		
+		// lock cells
+		$$("ssheet").lockCell(4, 3, true);
+		$$("ssheet").lockCell(5, 4, true);
+
+		// frozen row
+		$$("ssheet").freezeRows(1);
+	});
+</script>
+
+	
+</body>
+
+<!-- Mirrored from webix.com/demos/spreadsheet/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 07 Apr 2021 18:43:24 GMT -->
+</html>
